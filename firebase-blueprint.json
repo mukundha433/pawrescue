@@ -1,0 +1,200 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Represents an authenticated user across Citizen, Rescue Team, and Org Admin roles.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "role": { "type": "string", "enum": ["CITIZEN", "RESCUE_TEAM", "ORGANIZATION_ADMIN"] },
+        "status": { "type": "string", "enum": ["ACTIVE", "PENDING_APPROVAL", "SUSPENDED"] },
+        "teamId": { "type": "string" },
+        "teamName": { "type": "string" },
+        "organizationId": { "type": "string" },
+        "organizationName": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "email", "role", "status"]
+    },
+    "Incident": {
+      "title": "Animal Distress Incident",
+      "description": "Distress complaint reported by citizens or field teams for triage and rescue dispatch.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "incidentNumber": { "type": "string" },
+        "reporterUserId": { "type": "string" },
+        "reporterName": { "type": "string" },
+        "reporterContact": { "type": "string" },
+        "animalType": { "type": "string" },
+        "conditionDescription": { "type": "string" },
+        "urgency": { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"] },
+        "locationAddress": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["SUBMITTED", "VERIFIED", "AWAITING_ASSIGNMENT", "ASSIGNED", "DISPATCHED", "RESCUE_IN_PROGRESS", "RESCUED", "REJECTED", "CANCELLED"] },
+        "authenticityStatus": { "type": "string" },
+        "assignedTeamId": { "type": "string" },
+        "assignedTeamName": { "type": "string" },
+        "assignedVehicleId": { "type": "string" },
+        "assignedResponders": { "type": "string" },
+        "assignedAt": { "type": "string", "format": "date-time" },
+        "dispatchedAt": { "type": "string", "format": "date-time" },
+        "rescuedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "incidentNumber", "reporterUserId", "animalType", "urgency", "status"]
+    },
+    "RescueSquad": {
+      "title": "Rescue Squad Unit",
+      "description": "Emergency responder squad unit and readiness details.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "teamName": { "type": "string" },
+        "vehicleId": { "type": "string" },
+        "responders": { "type": "string" },
+        "phone": { "type": "string" },
+        "status": { "type": "string", "enum": ["ON_DUTY", "OFF_DUTY", "BUSY"] },
+        "currentMissionId": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "teamName", "status"]
+    },
+    "RescueReport": {
+      "title": "Mission Rescue Report",
+      "description": "Field completion disposition, treatment notes, and triage records.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "incidentId": { "type": "string" },
+        "teamId": { "type": "string" },
+        "disposition": { "type": "string" },
+        "clinicName": { "type": "string" },
+        "notes": { "type": "string" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "incidentId", "teamId", "disposition"]
+    },
+    "CitizenNotification": {
+      "title": "Citizen Notification",
+      "description": "Status and dispatch updates delivered to citizen reporters.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "incidentId": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "message", "isRead"]
+    },
+    "CitizenPreferences": {
+      "title": "Citizen Preferences",
+      "description": "Notification and language settings for citizen responders.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "notifyStatusUpdates": { "type": "boolean" },
+        "notifyTeamAssigned": { "type": "boolean" },
+        "notifyRescueCompleted": { "type": "boolean" },
+        "notifyServiceAnnouncements": { "type": "boolean" },
+        "preferredLanguage": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId"]
+    },
+    "VehicleEquipment": {
+      "title": "Vehicle & Equipment",
+      "description": "Equipment checklist, readiness inspection, and issue logs.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "vehicleId": { "type": "string" },
+        "vehicleModel": { "type": "string" },
+        "lastCheckedAt": { "type": "string", "format": "date-time" },
+        "items": { "type": "string" },
+        "issues": { "type": "string" }
+      },
+      "required": ["id", "vehicleId"]
+    },
+    "AdminSettings": {
+      "title": "Organization Admin Settings",
+      "description": "Operational policies, triage thresholds, and hotline configs.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "urgencyThresholdHours": { "type": "number" },
+        "maxReportsPerDay": { "type": "number" },
+        "requireAiPhotoVerification": { "type": "boolean" },
+        "operatingScheduleHours": { "type": "string" },
+        "hotlinePhone": { "type": "string" },
+        "emergencyVhfChannel": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id"]
+    },
+    "AuditLog": {
+      "title": "Administrative Audit Record",
+      "description": "Immutable log of administrative, assignment, and status actions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "incidentId": { "type": "string" },
+        "action": { "type": "string" },
+        "performedBy": { "type": "string" },
+        "details": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "action", "performedBy"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "User" },
+      "description": "User profiles across Citizen, Rescue Team, and Org Admin roles."
+    },
+    "/incidents/{incidentId}": {
+      "schema": { "$ref": "Incident" },
+      "description": "Animal distress complaints and rescue dispatch records."
+    },
+    "/rescue_squads/{squadId}": {
+      "schema": { "$ref": "RescueSquad" },
+      "description": "Field rescue squad units and on-duty availability."
+    },
+    "/rescue_reports/{reportId}": {
+      "schema": { "$ref": "RescueReport" },
+      "description": "Mission completion reports and veterinary triage forms."
+    },
+    "/citizen_notifications/{notificationId}": {
+      "schema": { "$ref": "CitizenNotification" },
+      "description": "Real-time notifications sent to citizens regarding their reports."
+    },
+    "/citizen_preferences/{userId}": {
+      "schema": { "$ref": "CitizenPreferences" },
+      "description": "Citizen alert and language preferences."
+    },
+    "/vehicle_equipment/{vehicleId}": {
+      "schema": { "$ref": "VehicleEquipment" },
+      "description": "Equipment checklist and maintenance reporting."
+    },
+    "/admin_settings/{settingId}": {
+      "schema": { "$ref": "AdminSettings" },
+      "description": "HQ operational policies and contact thresholds."
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "AuditLog" },
+      "description": "Auditable log of administrative dispatch and triage actions."
+    }
+  }
+}

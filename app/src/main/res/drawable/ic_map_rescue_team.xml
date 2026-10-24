@@ -1,0 +1,28 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="44dp"
+    android:viewportWidth="36"
+    android:viewportHeight="44">
+    <!-- Pin shadow -->
+    <path
+        android:fillColor="#33000000"
+        android:pathData="M18,42m-6,0a6,2 0,1 1,12 0a6,2 0,1 1,-12 0" />
+    <!-- Pin body (Primary Emerald / Rescue Green) -->
+    <path
+        android:fillColor="#0D9488"
+        android:pathData="M18,2 C9.16,2 2,9.16 2,18 C2,28.5 16.5,40.5 17.2,41.2 C17.65,41.6 18.35,41.6 18.8,41.2 C19.5,40.5 34,28.5 34,18 C34,9.16 26.84,2 18,2 Z" />
+    <!-- White border -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M18,2 C9.16,2 2,9.16 2,18 C2,28.5 16.5,40.5 17.2,41.2 C17.65,41.6 18.35,41.6 18.8,41.2 C19.5,40.5 34,28.5 34,18 C34,9.16 26.84,2 18,2 Z" />
+    <!-- Inner Circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,17m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+    <!-- Vehicle / Ambulance silhouette -->
+    <path
+        android:fillColor="#0D9488"
+        android:pathData="M13,15 h7 l2,3 v3 h-1 a2,2 0,0 1,-4 0 h-4 a2,2 0,0 1,-4 0 h-1 v-5 a1,1 0,0 1,1 -1 Z" />
+</vector>

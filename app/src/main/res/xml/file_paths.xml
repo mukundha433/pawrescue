@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <cache-path name="camera_photos" path="." />
+    <cache-path name="cache_root" path="" />
+    <files-path name="evidence_photos" path="evidence/" />
+    <files-path name="files_root" path="" />
+    <external-cache-path name="external_cache" path="" />
+    <external-files-path name="external_files" path="" />
+    <root-path name="root" path="." />
+</paths>

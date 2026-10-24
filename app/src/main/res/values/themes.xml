@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApplication" parent="android:Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowSplashScreenBackground">#151E32</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/pawrescue_pin_paw_foreground</item>
+    </style>
+</resources>

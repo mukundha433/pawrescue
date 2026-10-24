@@ -1,0 +1,165 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        ('role' in request.auth.token && (request.auth.token.role == 'ORGANIZATION_ADMIN' || request.auth.token.role == 'organization_admin')) ||
+        ('email' in request.auth.token && request.auth.token.email in ['jayasuryageetha@gmail.com', 'mukundha7665@gmail.com']) ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         'role' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data &&
+         (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['ORGANIZATION_ADMIN', 'organization_admin']))
+      );
+    }
+
+    function isRescueTeam() {
+      return isAuthenticated() && (
+        ('role' in request.auth.token && (request.auth.token.role == 'RESCUE_TEAM' || request.auth.token.role == 'rescue_team')) ||
+        ('email' in request.auth.token && request.auth.token.email in ['jeswanth746@gmail.com']) ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         'role' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data &&
+         (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['RESCUE_TEAM', 'rescue_team']) &&
+         'status' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data &&
+         (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.status in ['ACTIVE', 'active', 'APPROVED', 'approved']))
+      );
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'role', 'status']) &&
+             data.id is string &&
+             data.name is string &&
+             data.email is string &&
+             data.role in ['CITIZEN', 'citizen', 'RESCUE_TEAM', 'rescue_team', 'ORGANIZATION_ADMIN', 'organization_admin'] &&
+             data.status in ['ACTIVE', 'active', 'APPROVED', 'approved', 'PENDING_APPROVAL', 'pending_approval', 'PENDING', 'pending', 'SUSPENDED', 'suspended', 'REJECTED', 'rejected'];
+    }
+
+    function isValidRescueRequest(data) {
+      return data.keys().hasAll(['requestId', 'fullName', 'email', 'phoneNumber', 'status']) &&
+             data.requestId is string &&
+             data.fullName is string &&
+             data.email is string &&
+             data.phoneNumber is string &&
+             data.status in ['pending', 'approved', 'rejected', 'PENDING', 'APPROVED', 'REJECTED'];
+    }
+
+    function isValidIncident(data) {
+      return data.keys().hasAll(['id', 'incidentNumber', 'reporterUserId', 'animalType', 'urgency', 'status']) &&
+             data.id is string &&
+             data.incidentNumber is string &&
+             data.reporterUserId is string &&
+             data.animalType is string &&
+             data.urgency in ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'] &&
+             data.status in ['SUBMITTED', 'VERIFIED', 'AWAITING_ASSIGNMENT', 'ASSIGNED', 'DISPATCHED', 'RESCUE_IN_PROGRESS', 'RESCUED', 'REJECTED', 'CANCELLED'];
+    }
+
+    function isValidNotification(data) {
+      return data.keys().hasAll(['id', 'userId', 'title', 'message', 'isRead']) &&
+             data.id is string &&
+             data.userId is string &&
+             data.title is string &&
+             data.message is string &&
+             data.isRead is bool;
+    }
+
+    function isValidPreferences(data) {
+      return data.keys().hasAll(['userId']) &&
+             data.userId is string;
+    }
+
+    // Users collection with strict anti-privilege escalation
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      // Only admins can provision admin/rescue roles; citizens can only self-register as citizen
+      allow create: if (isOwner(userId) || isAdmin()) && isValidUser(request.resource.data) &&
+                       (isAdmin() || request.resource.data.role in ['CITIZEN', 'citizen']);
+      // Users cannot elevate their own role or change approval status
+      allow update: if (isOwner(userId) || isAdmin()) && isValidUser(request.resource.data) &&
+                       (isAdmin() || (request.resource.data.role == resource.data.role && request.resource.data.status == resource.data.status));
+      allow delete: if isAdmin() || isOwner(userId);
+    }
+
+    // Incidents collection
+    match /incidents/{incidentId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidIncident(request.resource.data);
+      // Only admins, assigned rescue teams, or the original reporter (for unassigned reports) can update
+      allow update: if isAuthenticated() && (
+        isAdmin() ||
+        isRescueTeam() ||
+        (resource.data.reporterUserId == request.auth.uid && request.resource.data.reporterUserId == request.auth.uid)
+      ) && isValidIncident(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Rescue squads collection (restricted to approved rescue teams and admins)
+    match /rescue_squads/{squadId} {
+      allow read: if isAdmin() || isRescueTeam();
+      allow write: if isAdmin() || isRescueTeam();
+    }
+
+    // Rescue reports collection (restricted to approved rescue teams and admins)
+    match /rescue_reports/{reportId} {
+      allow read: if isAdmin() || isRescueTeam();
+      allow create, update: if isRescueTeam() || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Citizen notifications
+    match /citizen_notifications/{notificationId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    // Citizen preferences
+    match /citizen_preferences/{userId} {
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdmin());
+      allow write: if isAuthenticated() && (isOwner(userId) || isAdmin()) && isValidPreferences(request.resource.data);
+    }
+
+    // Vehicle equipment
+    match /vehicle_equipment/{vehicleId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (isRescueTeam() || isAdmin());
+    }
+
+    // Admin settings
+    match /admin_settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Audit logs
+    match /audit_logs/{logId} {
+      allow read: if isAuthenticated() && (isAdmin() || isRescueTeam());
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+
+    // Rescue registration requests
+    match /rescueRegistrationRequests/{requestId} {
+      // Admins can read all; applicants can read their own request
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        (resource.data.uid == request.auth.uid) ||
+        ('email' in request.auth.token && resource.data.email == request.auth.token.email)
+      );
+      // Applicants can submit a new pending request for themselves
+      allow create: if isAuthenticated() && isValidRescueRequest(request.resource.data) &&
+                       (request.resource.data.status in ['pending', 'PENDING']) &&
+                       (request.resource.data.uid == request.auth.uid || ('email' in request.auth.token && request.auth.token.email == request.resource.data.email));
+      // Only Organization Admins can approve or reject (update status, reviewer info)
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}

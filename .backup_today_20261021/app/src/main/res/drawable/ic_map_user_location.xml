@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="28"
+    android:viewportHeight="28">
+    <!-- Outer light pulse ring -->
+    <path
+        android:fillColor="#332563EB"
+        android:pathData="M14,14m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0" />
+    <!-- White outer border -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,14m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+    <!-- Blue Center dot -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M14,14m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+</vector>

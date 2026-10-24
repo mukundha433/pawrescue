@@ -1,0 +1,134 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="200dp"
+    android:viewportWidth="240"
+    android:viewportHeight="200">
+
+    <!-- Soft mint & subtle blue background organic blobs -->
+    <path
+        android:fillColor="#E6F7EF"
+        android:pathData="M65,175 C45,105 75,40 130,18 C180,-4 228,12 236,68 C244,118 232,172 192,192 C148,208 85,205 65,175 Z" />
+
+    <path
+        android:fillColor="#E0F2FE"
+        android:pathData="M90,165 C75,110 100,55 145,35 C185,15 220,30 228,75 C234,120 222,165 186,184 C152,196 105,195 90,165 Z" />
+
+    <!-- Radio / Dispatch Signal Waves: Top Right -->
+    <path
+        android:strokeColor="#6EE7B7"
+        android:strokeWidth="1.5"
+        android:pathData="M185,45 C190,40 198,40 203,45" />
+    <path
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="1.5"
+        android:pathData="M180,40 C190,30 206,30 216,40" />
+
+    <!-- Antenna Mast -->
+    <path
+        android:strokeColor="#0F766E"
+        android:strokeWidth="2"
+        android:pathData="M175,70 L175,48" />
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M173,48 C173,46.9 173.9,46 175,46 C176.1,46 177,46.9 177,48 C177,49.1 176.1,50 175,50 C173.9,50 173,49.1 173,48 Z" />
+
+    <!-- Subtle Paw Print floating: Top Left -->
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M85,55 C83,55 81,57 81,59 C81,61 83,63 85,63 C87,63 89,61 89,59 C89,57 87,55 85,55 Z" />
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M80,51 C79,51 78,52 78,53 C78,54 79,55 80,55 C81,55 82,54 82,53 C82,52 81,51 80,51 Z" />
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M84,49 C83,49 82,50 82,51 C82,52 83,53 84,53 C85,53 86,52 86,51 C86,50 85,49 84,49 Z" />
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M88,50 C87,50 86,51 86,52 C86,53 87,54 88,54 C89,54 90,53 90,52 C90,51 89,50 88,50 Z" />
+
+    <!-- HQ BUILDING COMPLEX -->
+    <!-- Base Shadow -->
+    <path
+        android:fillColor="#000000"
+        android:alpha="0.08"
+        android:pathData="M80,180 C80,175 110,173 155,173 C200,173 230,175 230,180 C230,185 200,187 155,187 C110,187 80,185 80,180 Z" />
+
+    <!-- Secondary Wing / Tech Annex (Left block) -->
+    <path
+        android:fillColor="#F1F5F9"
+        android:strokeColor="#CBD5E1"
+        android:strokeWidth="1.5"
+        android:pathData="M95,110 L135,110 L135,174 L95,174 Z" />
+    <!-- Wing Windows (4 grid) -->
+    <path
+        android:fillColor="#CBD5E1"
+        android:pathData="M102,120 L112,120 L112,132 L102,132 Z" />
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M118,120 L128,120 L128,132 L118,132 Z" />
+    <path
+        android:fillColor="#94A3B8"
+        android:pathData="M102,142 L112,142 L112,154 L102,154 Z" />
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M118,142 L128,142 L128,154 L118,154 Z" />
+
+    <!-- Primary Command Tower (Center-Right block) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.5"
+        android:pathData="M130,70 L210,70 L210,174 L130,174 Z" />
+
+    <!-- Top Command Parapet accent bar -->
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M128,68 L212,68 L212,74 L128,74 Z" />
+
+    <!-- Command Glass Windows Level 1 -->
+    <path
+        android:fillColor="#0284C7"
+        android:pathData="M140,84 L160,84 L160,98 L140,98 Z" />
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M166,84 L186,84 L186,98 L166,98 Z" />
+    <path
+        android:fillColor="#0284C7"
+        android:pathData="M192,84 L200,84 L200,98 L192,98 Z" />
+
+    <!-- Command Glass Windows Level 2 -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M140,108 L160,108 L160,122 L140,122 Z" />
+    <path
+        android:fillColor="#0284C7"
+        android:pathData="M166,108 L186,108 L186,122 L166,122 Z" />
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M192,108 L200,108 L200,122 L192,122 Z" />
+
+    <!-- Central Security Shield & Paw Badge over entrance -->
+    <!-- Shield Outline -->
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M170,132 C178,132 186,128 186,128 C186,142 178,150 170,154 C162,150 154,142 154,128 C154,128 162,132 170,132 Z" />
+    <!-- White Paw in Shield -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M170,145 C168,145 166.5,143.5 166.5,141.5 C166.5,139.5 170,136 170,136 C170,136 173.5,139.5 173.5,141.5 C173.5,143.5 172,145 170,145 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M166,138 C165.2,138 164.5,137.3 164.5,136.5 C164.5,135.7 165.2,135 166,135 C166.8,135 167.5,135.7 167.5,136.5 C167.5,137.3 166.8,138 166,138 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M174,138 C173.2,138 172.5,137.3 172.5,136.5 C172.5,135.7 173.2,135 174,135 C174.8,135 175.5,135.7 175.5,136.5 C175.5,137.3 174.8,138 174,138 Z" />
+
+    <!-- Main HQ Glass Entrance Portico -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M160,158 L180,158 L180,174 L160,174 Z" />
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M168,160 L172,160 L172,174 L168,174 Z" />
+
+</vector>

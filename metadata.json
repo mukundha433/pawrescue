@@ -1,0 +1,6 @@
+{
+  "name": "PawRescue",
+  "description": "Emergency stray animal rescue, field telemetry tracking, and strict three-portal role-based triage system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

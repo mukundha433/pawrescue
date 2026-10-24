@@ -1,0 +1,140 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="200dp"
+    android:viewportWidth="240"
+    android:viewportHeight="200">
+
+    <!-- Soft mint background organic blob -->
+    <path
+        android:fillColor="#E6F7EF"
+        android:pathData="M65,175 C45,105 75,40 130,18 C180,-4 228,12 236,68 C244,118 232,172 192,192 C148,208 85,205 65,175 Z" />
+
+    <path
+        android:fillColor="#D1FAE5"
+        android:pathData="M90,165 C75,110 100,55 145,35 C185,15 220,30 228,75 C234,120 222,165 186,184 C152,196 105,195 90,165 Z" />
+
+    <!-- Subtle route / map dashed lines -->
+    <path
+        android:strokeColor="#A7F3D0"
+        android:strokeWidth="2"
+        android:pathData="M70,80 C95,65 110,85 135,70 C155,58 175,65 195,50" />
+
+    <!-- Location map pin: Top-right -->
+    <path
+        android:fillColor="#0F766E"
+        android:pathData="M185,38 C179,38 175,42 175,48 C175,55 185,65 185,65 C185,65 195,55 195,48 C195,42 191,38 185,38 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M185,45 C183.3,45 182,46.3 182,48 C182,49.7 183.3,51 185,51 C186.7,51 188,49.7 188,48 C188,46.3 186.7,45 185,45 Z" />
+
+    <!-- Secondary map beacon pin: Mid-left -->
+    <path
+        android:fillColor="#14B8A6"
+        android:pathData="M85,95 C81,95 78,98 78,102 C78,107 85,114 85,114 C85,114 92,107 92,102 C92,98 89,95 85,95 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M85,100 C83.9,100 83,100.9 83,102 C83,103.1 83.9,104 85,104 C86.1,104 87,103.1 87,102 C87,100.9 86.1,100 85,100 Z" />
+
+    <!-- Floating subtle paw print in background -->
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M215,35 C213,35 211,37 211,39 C211,41 213,43 215,43 C217,43 219,41 219,39 C219,37 217,35 215,35 Z" />
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M210,31 C209,31 208,32 208,33 C208,34 209,35 210,35 C211,35 212,34 212,33 C212,32 211,31 210,31 Z" />
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M214,29 C213,29 212,30 212,31 C212,32 213,33 214,33 C215,33 216,32 216,31 C216,30 215,29 214,29 Z" />
+    <path
+        android:fillColor="#A7F3D0"
+        android:pathData="M218,30 C217,30 216,31 216,32 C216,33 217,34 218,34 C219,34 220,33 220,32 C220,31 219,30 218,30 Z" />
+
+    <!-- RESCUE AMBULANCE VEHICLE -->
+    <!-- Vehicle Shadow -->
+    <path
+        android:fillColor="#000000"
+        android:alpha="0.08"
+        android:pathData="M75,178 C75,174 100,172 150,172 C200,172 230,174 230,178 C230,182 200,184 150,184 C100,184 75,182 75,178 Z" />
+
+    <!-- Main Ambulance Van Body -->
+    <!-- Roof and back curve -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#CBD5E1"
+        android:strokeWidth="1.5"
+        android:pathData="M80,132 L80,105 C80,98 85,92 92,92 L185,92 C192,92 198,96 202,102 L215,122 C218,126 220,130 220,135 L220,162 C220,166 216,168 212,168 L88,168 C84,168 80,165 80,160 Z" />
+
+    <!-- Cab Windshield & Windows -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M185,98 L198,118 C199,120 198,123 195,123 L180,123 L180,98 Z" />
+    <!-- Rear Cabin Window -->
+    <path
+        android:fillColor="#F1F5F9"
+        android:strokeColor="#E2E8F0"
+        android:strokeWidth="1"
+        android:pathData="M95,100 L125,100 C128,100 130,102 130,105 L130,120 C130,123 128,125 125,125 L95,125 C92,125 90,123 90,120 L90,105 C90,102 92,100 95,100 Z" />
+
+    <!-- Teal Rescue Stripe across Body -->
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M80,134 L220,134 L220,144 L80,144 Z" />
+
+    <!-- Emergency Cross / Paw on side -->
+    <!-- Medical Cross on cabin -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M107,136 L113,136 L113,142 L107,142 Z" />
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M109,137 L111,137 L111,141 L109,141 Z" />
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M108,138.5 L112,138.5 L112,139.5 L108,139.5 Z" />
+
+    <!-- PAWRESCUE lettering line on vehicle stripe -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M125,138 L165,138 L165,140 L125,140 Z" />
+
+    <!-- Emergency Light Bar on Roof -->
+    <path
+        android:fillColor="#0F766E"
+        android:pathData="M145,86 L165,86 C166,86 167,87 167,88 L167,92 L143,92 L143,88 C143,87 144,86 145,86 Z" />
+    <!-- Emergency Light Flash accents -->
+    <path
+        android:fillColor="#14B8A6"
+        android:pathData="M147,88 L153,88 L153,90 L147,90 Z" />
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M157,88 L163,88 L163,90 L157,90 Z" />
+
+    <!-- Headlight -->
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M216,140 L220,140 L220,146 L216,146 Z" />
+
+    <!-- Wheels (Front & Back) -->
+    <!-- Back Wheel Cutout & Wheel -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M100,168 C100,160 106,154 114,154 C122,154 128,160 128,168 C128,176 122,182 114,182 C106,182 100,176 100,168 Z" />
+    <path
+        android:fillColor="#94A3B8"
+        android:pathData="M108,168 C108,164.7 110.7,162 114,162 C117.3,162 120,164.7 120,168 C120,171.3 117.3,174 114,174 C110.7,174 108,171.3 108,168 Z" />
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M112,168 C112,166.9 112.9,166 114,166 C115.1,166 116,166.9 116,168 C116,169.1 115.1,170 114,170 C112.9,170 112,169.1 112,168 Z" />
+
+    <!-- Front Wheel Cutout & Wheel -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M182,168 C182,160 188,154 196,154 C204,154 210,160 210,168 C210,176 204,182 196,182 C188,182 182,176 182,168 Z" />
+    <path
+        android:fillColor="#94A3B8"
+        android:pathData="M190,168 C190,164.7 192.7,162 196,162 C199.3,162 202,164.7 202,168 C202,171.3 199.3,174 196,174 C192.7,174 190,171.3 190,168 Z" />
+    <path
+        android:fillColor="#00684A"
+        android:pathData="M194,168 C194,166.9 194.9,166 196,166 C197.1,166 198,166.9 198,168 C198,169.1 197.1,170 196,170 C194.9,170 194,169.1 194,168 Z" />
+
+</vector>

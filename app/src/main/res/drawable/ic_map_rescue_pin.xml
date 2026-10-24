@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="48dp"
+    android:viewportWidth="36"
+    android:viewportHeight="48">
+    <!-- Pin shadow / base -->
+    <path
+        android:fillColor="#33000000"
+        android:pathData="M18,46m-6,0a6,2 0,1 1,12 0a6,2 0,1 1,-12 0" />
+    <!-- Pin body (Emergency Red) -->
+    <path
+        android:fillColor="#DC2626"
+        android:pathData="M18,2 C9.16,2 2,9.16 2,18 C2,29.25 16.25,43.25 17.15,44.15 C17.6,44.6 18.4,44.6 18.85,44.15 C19.75,43.25 34,29.25 34,18 C34,9.16 26.84,2 18,2 Z" />
+    <!-- Pin border stroke -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M18,2 C9.16,2 2,9.16 2,18 C2,29.25 16.25,43.25 17.15,44.15 C17.6,44.6 18.4,44.6 18.85,44.15 C19.75,43.25 34,29.25 34,18 C34,9.16 26.84,2 18,2 Z" />
+    <!-- White Inner Circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,18m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+    <!-- Center Emergency Medical/Paw Cross (Red) -->
+    <path
+        android:fillColor="#DC2626"
+        android:pathData="M16,13 h4 v10 h-4 Z" />
+    <path
+        android:fillColor="#DC2626"
+        android:pathData="M13,16 h10 v4 h-10 Z" />
+</vector>

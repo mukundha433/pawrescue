@@ -1,0 +1,128 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        (request.auth.token != null && request.auth.token.role == 'ORGANIZATION_ADMIN') ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ORGANIZATION_ADMIN')
+      );
+    }
+
+    function isRescueTeam() {
+      return isAuthenticated() && (
+        (request.auth.token != null && request.auth.token.role == 'RESCUE_TEAM') ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'RESCUE_TEAM')
+      );
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'role', 'status']) &&
+             data.id is string &&
+             data.name is string &&
+             data.email is string &&
+             data.role in ['CITIZEN', 'RESCUE_TEAM', 'ORGANIZATION_ADMIN'] &&
+             data.status in ['ACTIVE', 'PENDING_APPROVAL', 'SUSPENDED'];
+    }
+
+    function isValidIncident(data) {
+      return data.keys().hasAll(['id', 'incidentNumber', 'reporterUserId', 'animalType', 'urgency', 'status']) &&
+             data.id is string &&
+             data.incidentNumber is string &&
+             data.reporterUserId is string &&
+             data.animalType is string &&
+             data.urgency in ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'] &&
+             data.status in ['SUBMITTED', 'VERIFIED', 'AWAITING_ASSIGNMENT', 'ASSIGNED', 'DISPATCHED', 'RESCUE_IN_PROGRESS', 'RESCUED', 'REJECTED', 'CANCELLED'];
+    }
+
+    function isValidNotification(data) {
+      return data.keys().hasAll(['id', 'userId', 'title', 'message', 'isRead']) &&
+             data.id is string &&
+             data.userId is string &&
+             data.title is string &&
+             data.message is string &&
+             data.isRead is bool;
+    }
+
+    function isValidPreferences(data) {
+      return data.keys().hasAll(['userId']) &&
+             data.userId is string;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if (isOwner(userId) || isAdmin()) && isValidUser(request.resource.data);
+      allow update: if (isOwner(userId) || isAdmin()) && isValidUser(request.resource.data);
+      allow delete: if isAdmin() || isOwner(userId);
+    }
+
+    // Incidents collection
+    match /incidents/{incidentId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidIncident(request.resource.data);
+      allow update: if isAuthenticated() && (
+        isAdmin() ||
+        isRescueTeam() ||
+        (resource.data.reporterUserId == request.auth.uid && request.resource.data.reporterUserId == request.auth.uid)
+      ) && isValidIncident(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Rescue squads collection
+    match /rescue_squads/{squadId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() || isRescueTeam();
+    }
+
+    // Rescue reports collection
+    match /rescue_reports/{reportId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated() && (isRescueTeam() || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // Citizen notifications
+    match /citizen_notifications/{notificationId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    // Citizen preferences
+    match /citizen_preferences/{userId} {
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdmin());
+      allow write: if isAuthenticated() && (isOwner(userId) || isAdmin()) && isValidPreferences(request.resource.data);
+    }
+
+    // Vehicle equipment
+    match /vehicle_equipment/{vehicleId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (isRescueTeam() || isAdmin());
+    }
+
+    // Admin settings
+    match /admin_settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Audit logs
+    match /audit_logs/{logId} {
+      allow read: if isAuthenticated() && (isAdmin() || isRescueTeam());
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+  }
+}
